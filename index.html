@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>El Sol: Nuestra Estrella</title>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="cosmic-bg"></div>
+  <button id="audioToggleBtn" aria-label="Alternar audio">🔇</button>
+  <audio id="bgMusic" src="sound/angelical.mp3" loop></audio>
+  <!-- SECCIÓN HERO CON IMAGEN DEL SOL -->
+  <section class="fullscreen hero-section">
+    <div class="container">
+      <div class="sun-image-container">
+        <img src="https://images.unsplash.com/photo-1614642264762-d0a3b8bf3700?w=800&h=800&fit=crop" 
+             alt="El Sol" 
+             class="sun-hero-image"
+             loading="eager">
+        <div class="sun-glow-effect"></div>
+      </div>
+      
+      <div class="title-wrapper">
+        <h1 class="main-title">El Sol: Nuestra Estrella Vital</h1>
+        <div class="title-glow"></div>
+      </div>
+      <p class="intro-text">
+        Descubre los secretos de nuestra estrella más cercana y comprende las medidas fundamentales 
+        del universo: <strong>Unidades Astronómicas</strong>, <strong>Masas Solares</strong> y <strong>Años Luz</strong>.
+      </p>
+      <div class="scroll-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: UNIDAD ASTRONÓMICA -->
+  <section class="fullscreen section-ua">
+    <div class="container">
+      <div class="section-number">01</div>
+      <h2 class="section-title">Unidad Astronómica</h2>
+      
+      <div class="concept-explanation">
+        <div class="concept-icon">📏</div>
+        <p class="concept-text">
+          Una <span class="highlight">Unidad Astronómica (UA)</span> es la distancia promedio entre la Tierra y el Sol, 
+          equivalente a aproximadamente <strong>149,597,870.7 kilómetros</strong> o casi <strong>150 millones de km</strong>.
+        </p>
+      </div>
+
+      <div class="visual-comparison">
+        <div class="comparison-card">
+          <div class="card-visual">🌍 ↔️ ☀️</div>
+          <h3>Distancia Base</h3>
+          <p>1 UA = 149,597,871 km</p>
+          <p class="detail">8 minutos luz</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">🚗</div>
+          <h3>En Automóvil</h3>
+          <p>A 100 km/h sin parar</p>
+          <p class="detail">171 años de viaje</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">✈️</div>
+          <h3>En Avión</h3>
+          <p>A 900 km/h sin parar</p>
+          <p class="detail">19 años de viaje</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">🚀</div>
+          <h3>En Cohete</h3>
+          <p>A 40,000 km/h</p>
+          <p class="detail">156 días de viaje</p>
+        </div>
+      </div>
+
+      <div class="importance-box">
+        <h3>💡 Importancia de la UA</h3>
+        <p>
+          La Unidad Astronómica sirve como <strong>regla cósmica</strong> para medir distancias dentro del Sistema Solar. 
+          Por ejemplo, Júpiter está a 5.2 UA del Sol, y Neptuno a 30 UA. Es más práctico decir "30 UA" que "4,500 millones de kilómetros".
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: MASA SOLAR -->
+  <section class="fullscreen section-masa">
+    <div class="container">
+      <div class="section-number">02</div>
+      <h2 class="section-title">Masa Solar</h2>
+      
+      <div class="concept-explanation">
+        <div class="concept-icon">⚖️</div>
+        <p class="concept-text">
+          Una <span class="highlight">Masa Solar (M☉)</span> es la masa de nuestro Sol, utilizada como unidad estándar 
+          para medir la masa de otras estrellas y objetos celestes masivos. Equivale a aproximadamente 
+          <strong>1.989 × 10³⁰ kilogramos</strong> (casi 2 mil trillones de toneladas).
+        </p>
+      </div>
+
+      <div class="visual-comparison">
+        <div class="comparison-card">
+          <div class="card-visual">☀️</div>
+          <h3>El Sol</h3>
+          <p>1 Masa Solar</p>
+          <p class="detail">1.989 × 10³⁰ kg</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">🌍</div>
+          <h3>La Tierra</h3>
+          <p>0.000003 M☉</p>
+          <p class="detail">333,000 veces menor</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">♃</div>
+          <h3>Júpiter</h3>
+          <p>0.001 M☉</p>
+          <p class="detail">1,000 veces menor</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">⭐</div>
+          <h3>Betelgeuse</h3>
+          <p>20 M☉</p>
+          <p class="detail">20 veces mayor</p>
+        </div>
+      </div>
+
+      <div class="importance-box">
+        <h3>💡 Importancia de la Masa Solar</h3>
+        <p>
+          La masa de una estrella determina su <strong>brillo, temperatura, tiempo de vida y destino final</strong>. 
+          Estrellas con menos de 0.08 M☉ nunca inician fusión nuclear (enanas marrones). Estrellas con más de 8 M☉ 
+          terminan en espectaculares supernovas. Nuestro Sol, con 1 M☉, vivirá unos 10 mil millones de años.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: AÑO LUZ -->
+  <section class="fullscreen section-luz">
+    <div class="container">
+      <div class="section-number">03</div>
+      <h2 class="section-title">Año Luz</h2>
+      
+      <div class="concept-explanation">
+        <div class="concept-icon">💫</div>
+        <p class="concept-text">
+          Un <span class="highlight">Año Luz (al)</span> es la distancia que recorre la luz en un año viajando a 
+          <strong>299,792 kilómetros por segundo</strong>. Equivale a aproximadamente <strong>9.46 billones de kilómetros</strong> 
+          o <strong>63,241 Unidades Astronómicas</strong>.
+        </p>
+      </div>
+
+      <div class="visual-comparison">
+        <div class="comparison-card">
+          <div class="card-visual">⚡</div>
+          <h3>Velocidad de la Luz</h3>
+          <p>299,792 km/s</p>
+          <p class="detail">7.5 vueltas a la Tierra/segundo</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">🌟</div>
+          <h3>1 Año Luz</h3>
+          <p>9.46 billones de km</p>
+          <p class="detail">63,241 UA</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">🌌</div>
+          <h3>Próxima Centauri</h3>
+          <p>4.24 años luz</p>
+          <p class="detail">Estrella más cercana</p>
+        </div>
+
+        <div class="comparison-card">
+          <div class="card-visual">🌠</div>
+          <h3>Vía Láctea</h3>
+          <p>100,000 años luz</p>
+          <p class="detail">Diámetro de nuestra galaxia</p>
+        </div>
+      </div>
+
+      <div class="importance-box">
+        <h3>💡 Importancia del Año Luz</h3>
+        <p>
+          El año luz es esencial para medir <strong>distancias galácticas e intergalácticas</strong>. 
+          Cuando observamos una estrella a 100 años luz, vemos su luz tal como era hace 100 años. 
+          Mirar al espacio es literalmente <strong>mirar al pasado</strong>. La galaxia de Andrómeda, nuestra vecina, 
+          está a 2.5 millones de años luz.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: EL SOL -->
+  <section class="fullscreen section-sol">
+    <div class="container">
+      <div class="section-number">04</div>
+      <h2 class="section-title">Nuestro Sol</h2>
+      
+      <div class="sun-description">
+        <div class="sun-visual">☀️</div>
+        <h3 class="sun-subtitle">Tipo de Estrella</h3>
+        <p class="sun-text">
+          El Sol es una <span class="highlight">estrella de tipo espectral G2V</span>, clasificada como 
+          <strong>enana amarilla</strong>. Esto significa que es una estrella de secuencia principal de tamaño mediano, 
+          con una temperatura superficial de aproximadamente <strong>5,778 K (5,505°C)</strong>.
+        </p>
+        
+        <div class="sun-stats">
+          <div class="stat-item">
+            <span class="stat-label">Edad</span>
+            <span class="stat-value">4,600 millones de años</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Composición</span>
+            <span class="stat-value">73% hidrógeno, 25% helio</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Diámetro</span>
+            <span class="stat-value">1,392,000 km (109 × Tierra)</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Masa</span>
+            <span class="stat-value">1 M☉ (333,000 × Tierra)</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Luminosidad</span>
+            <span class="stat-value">3.828 × 10²⁶ watts</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Esperanza de vida</span>
+            <span class="stat-value">10,000 millones de años total</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cultures-section">
+        <h3 class="cultures-title">🏛️ El Sol en Culturas Ancestrales</h3>
+        
+        <div class="cultures-grid">
+          <div class="culture-card">
+            <div class="culture-icon">🔺</div>
+            <h4>Egipto Antiguo</h4>
+            <p>
+              <strong>Ra</strong> era el dios del Sol y la deidad más importante. Los faraones se consideraban 
+              hijos de Ra. Las pirámides se orientaban hacia el Sol, y el culto solar dominó durante milenios.
+            </p>
+          </div>
+
+          <div class="culture-card">
+            <div class="culture-icon">🗿</div>
+            <h4>Cultura Inca</h4>
+            <p>
+              <strong>Inti</strong>, el dios Sol, era la deidad suprema. El Inca (emperador) era considerado 
+              hijo del Sol. El Inti Raymi (Festival del Sol) sigue celebrándose cada solsticio de invierno en Cusco.
+            </p>
+          </div>
+
+          <div class="culture-card">
+            <div class="culture-icon">🌽</div>
+            <h4>Aztecas</h4>
+            <p>
+              <strong>Tonatiuh</strong> era el dios Sol guerrero. Los aztecas creían que el Sol necesitaba 
+              sangre humana para continuar su viaje diario. Sus calendarios y arquitectura reflejaban ciclos solares precisos.
+            </p>
+          </div>
+
+          <div class="culture-card">
+            <div class="culture-icon">⛩️</div>
+            <h4>Japón</h4>
+            <p>
+              <strong>Amaterasu</strong>, la diosa del Sol, es la deidad más importante del sintoísmo. 
+              Se cree que la familia imperial japonesa desciende directamente de ella. El sol aparece en la bandera nacional.
+            </p>
+          </div>
+
+          <div class="culture-card">
+            <div class="culture-icon">🗿</div>
+            <h4>Grecia Antigua</h4>
+            <p>
+              <strong>Helios</strong> conducía un carro de fuego a través del cielo cada día. Más tarde, 
+              <strong>Apolo</strong> se asoció con el Sol, representando luz, verdad, profecía y artes.
+            </p>
+          </div>
+
+          <div class="culture-card">
+            <div class="culture-icon">🪶</div>
+            <h4>Nativos Americanos</h4>
+            <p>
+              Muchas tribus, como los Hopi y Sioux, realizaban <strong>danzas solares</strong> ceremoniales. 
+              El Sol era visto como dador de vida, y sus movimientos guiaban ceremonias y agricultura.
+            </p>
+          </div>
+        </div>
+
+        <div class="importance-box">
+          <h3>🌍 Significado Universal</h3>
+          <p>
+            Prácticamente todas las culturas ancestrales <strong>veneraban al Sol</strong> como fuente de vida, 
+            calor y luz. Era símbolo de poder, renacimiento diario, y ciclos naturales. Los templos, monumentos 
+            y calendarios se alineaban con precisión astronómica para capturar equinoccios y solsticios, 
+            demostrando conocimientos sofisticados del movimiento solar.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: TABLA COMPARATIVA -->
+  <section class="fullscreen section-tabla">
+    <div class="container">
+      <div class="section-number">05</div>
+      <h2 class="section-title">Objetos Celestes: Comparativa</h2>
+      
+      <p class="intro-text">
+        Explora las características principales de los objetos que pueblan el universo, 
+        desde pequeños meteoros hasta enormes cúmulos de galaxias.
+      </p>
+
+      <div class="table-container">
+        <div class="table-wrapper">
+          <table class="celestial-table">
+            <thead>
+              <tr>
+                <th>Objeto</th>
+                <th>Definición</th>
+                <th>Formación</th>
+                <th>Tamaño (UA)</th>
+                <th>Forma</th>
+                <th>Trayectoria</th>
+                <th>Temperatura</th>
+                <th>Masa (M☉)</th>
+                <th>Color</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>☄️ Meteoro</strong></td>
+                <td>Fragmento de roca o metal que se quema al entrar en la atmósfera terrestre</td>
+                <td>Restos de cometas o asteroides fragmentados</td>
+                <td>~6.7×10⁻¹⁴ UA (1mm-1m)</td>
+                <td>Irregular, fragmentos pequeños</td>
+                <td>Línea recta de alta velocidad (15-70 km/s)</td>
+                <td>1,500-3,000°C al quemarse</td>
+                <td>~10⁻²⁴ M☉</td>
+                <td>Blanco-amarillo brillante</td>
+              </tr>
+
+              <tr>
+                <td><strong>🪨 Asteroide</strong></td>
+                <td>Cuerpo rocoso menor que orbita el Sol, principalmente entre Marte y Júpiter</td>
+                <td>Restos del disco protoplanetario que nunca formaron un planeta</td>
+                <td>6.7×10⁻⁹ a 6.7×10⁻⁶ UA (1m-1000km)</td>
+                <td>Irregular, esférica si es grande</td>
+                <td>Órbita elíptica alrededor del Sol</td>
+                <td>-73°C a -23°C</td>
+                <td>10⁻¹⁸ a 10⁻¹² M☉</td>
+                <td>Gris, marrón, rojizo</td>
+              </tr>
+
+              <tr>
+                <td><strong>☄️ Cometa</strong></td>
+                <td>Cuerpo helado que desarrolla cola al acercarse al Sol</td>
+                <td>Restos helados del sistema solar exterior primitivo</td>
+                <td>6.7×10⁻⁸ a 6.7×10⁻⁶ UA (10-100km núcleo)</td>
+                <td>Núcleo irregular, cola extendida</td>
+                <td>Órbita muy elíptica o parabólica</td>
+                <td>-200°C (lejos) a 0°C (cerca del Sol)</td>
+                <td>10⁻¹⁸ a 10⁻¹⁵ M☉</td>
+                <td>Núcleo oscuro, cola blanca-azul</td>
+              </tr>
+
+              <tr>
+                <td><strong>🌙 Satélite Natural</strong></td>
+                <td>Cuerpo celeste que orbita un planeta</td>
+                <td>Captura gravitacional o formación junto al planeta</td>
+                <td>2.3×10⁻⁸ a 3.5×10⁻⁵ UA (ej: Luna 3,474km)</td>
+                <td>Esférica o irregular</td>
+                <td>Órbita alrededor de un planeta</td>
+                <td>-233°C a 127°C (Luna)</td>
+                <td>10⁻¹⁷ a 10⁻¹³ M☉</td>
+                <td>Gris, beige, variable</td>
+              </tr>
+
+              <tr>
+                <td><strong>🛰️ Satélite Artificial</strong></td>
+                <td>Objeto creado por humanos que orbita la Tierra u otro cuerpo</td>
+                <td>Construcción humana y lanzamiento espacial</td>
+                <td>6.7×10⁻¹² a 6.7×10⁻¹⁰ UA (1-100m)</td>
+                <td>Variada (paneles, antenas, módulos)</td>
+                <td>Órbita controlada alrededor de la Tierra</td>
+                <td>-100°C a 100°C</td>
+                <td>~10⁻²⁷ M☉</td>
+                <td>Metálico, reflectante</td>
+              </tr>
+
+              <tr>
+                <td><strong>🪐 Planeta</strong></td>
+                <td>Cuerpo celeste que orbita una estrella, con masa suficiente para ser esférico</td>
+                <td>Acreción de material del disco protoplanetario</td>
+                <td>3.3×10⁻⁵ a 1.0×10⁻³ UA (5,000-140,000km)</td>
+                <td>Esférica u oblata por rotación</td>
+                <td>Órbita elíptica alrededor de una estrella</td>
+                <td>-224°C a 464°C</td>
+                <td>10⁻¹³ a 10⁻⁹ M☉</td>
+                <td>Azul, rojo, amarillo, marrón</td>
+              </tr>
+
+              <tr>
+                <td><strong>⭐ Estrella</strong></td>
+                <td>Esfera de plasma que genera energía por fusión nuclear</td>
+                <td>Colapso gravitacional de nubes moleculares</td>
+                <td>4.7×10⁻⁶ a 1.3×10⁻³ UA (700,000-200M km)</td>
+                <td>Esférica</td>
+                <td>Órbita alrededor del centro galáctico</td>
+                <td>2,500°C a 40,000°C (superficie)</td>
+                <td>0.08 a 100+ M☉</td>
+                <td>Rojo, naranja, amarillo, blanco, azul</td>
+              </tr>
+
+              <tr>
+                <td><strong>🌌 Nebulosa</strong></td>
+                <td>Nube interestelar de gas y polvo</td>
+                <td>Remanentes de supernovas o regiones de formación estelar</td>
+                <td>67 a 670,000 UA (1-10 años luz)</td>
+                <td>Irregular, difusa, variada</td>
+                <td>Relativamente estática o en expansión lenta</td>
+                <td>-263°C a 10,000°C</td>
+                <td>10⁻³ a 10³ M☉</td>
+                <td>Rojo, verde, azul (emisión)</td>
+              </tr>
+
+              <tr>
+                <td><strong>🌌 Galaxia</strong></td>
+                <td>Sistema gravitacionalmente ligado de estrellas, gas, polvo y materia oscura</td>
+                <td>Colapso gravitacional de regiones densas del universo temprano</td>
+                <td>6.3×10⁹ a 6.3×10¹¹ UA (100,000-10M años luz)</td>
+                <td>Espiral, elíptica, irregular</td>
+                <td>Movimiento a través del espacio intergaláctico</td>
+                <td>-270°C (espacio) a millones °C (centros activos)</td>
+                <td>10⁸ a 10¹³ M☉</td>
+                <td>Blanco, amarillo, azul (brazos espirales)</td>
+              </tr>
+
+              <tr>
+                <td><strong>🌌🌌 Cúmulo de Galaxias</strong></td>
+                <td>Agrupación de cientos a miles de galaxias ligadas gravitacionalmente</td>
+                <td>Estructuras a gran escala del universo por atracción gravitacional</td>
+                <td>6.3×10¹¹ a 6.3×10¹² UA (10-100M años luz)</td>
+                <td>Irregular, esférica</td>
+                <td>Expansión con el universo</td>
+                <td>10-100 millones °C (gas intracumular)</td>
+                <td>10¹³ a 10¹⁵ M☉</td>
+                <td>Emisión de rayos X (invisible)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-notes">
+        <h3>📌 Notas Importantes</h3>
+        <div class="notes-grid">
+          <div class="note-item">
+            <span class="note-icon">🔢</span>
+            <p><strong>Escalas:</strong> Los tamaños varían en órdenes de magnitud astronómicos. 1 año luz ≈ 63,241 UA</p>
+          </div>
+          <div class="note-item">
+            <span class="note-icon">🌡️</span>
+            <p><strong>Temperaturas:</strong> Varían enormemente según composición, distancia al Sol y procesos internos</p>
+          </div>
+          <div class="note-item">
+            <span class="note-icon">⚖️</span>
+            <p><strong>Masas:</strong> Expresadas en Masas Solares (M☉) para facilitar comparación astronómica</p>
+          </div>
+          <div class="note-item">
+            <span class="note-icon">🎨</span>
+            <p><strong>Colores:</strong> Determinados por temperatura, composición química y procesos de emisión</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
