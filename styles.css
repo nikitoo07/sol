@@ -282,7 +282,7 @@ html {
   top: -20px;
   left: 50%;
   transform: translateX(-50%);
-  opacity: 0.04;
+  opacity: 0.06; /* ligeramente más visible pero menos difuso */
   background: linear-gradient(135deg, var(--orange), var(--gold));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -332,10 +332,11 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--orange-light);
+  /* reducir intensidad de blur/sombra para mejorar legibilidad */
   text-shadow: 
-    0 0 8px rgba(255, 140, 66, 0.7),
-    0 0 15px rgba(255, 140, 66, 0.4),
-    0 0 25px rgba(255, 200, 55, 0.3);
+    0 0 6px rgba(255, 140, 66, 0.55),
+    0 0 10px rgba(255, 140, 66, 0.28),
+    0 0 14px rgba(255, 200, 55, 0.2);
   margin-bottom: 3rem;
   position: relative;
   z-index: 1;
@@ -998,6 +999,88 @@ strong {
   html {
     scroll-behavior: auto;
   } 
+}
+
+/* Mobile specific tweaks */
+@media (max-width: 480px) {
+  /* Make interactive targets larger and more touch-friendly */
+  button, .comparison-card, .note-card, .exoplanet-card {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    touch-action: manipulation;
+  }
+
+  /* Reduce hero image size for small screens */
+  .sun-image-container {
+    width: 260px;
+    height: 260px;
+    margin-bottom: 1.5rem;
+  }
+
+  .sun-hero-image {
+    box-shadow: 0 0 30px rgba(255,140,66,0.6);
+    animation: none; /* desactivar flotación en móviles para ahorrar CPU */
+  }
+
+  /* Ajustes del overlay y botón de inicio */
+  .overlay-content {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .overlay-content h1 {
+    font-size: 1.6rem;
+  }
+
+  #startButton {
+    padding: 0.9rem 1.6rem;
+    font-size: 1rem;
+    border-radius: 40px;
+  }
+
+  /* Botón de audio más accesible */
+  #audioToggleBtn {
+    top: 14px;
+    right: 14px;
+    padding: 14px;
+    font-size: 20px;
+    border-radius: 12px;
+  }
+
+  .container { padding: 12px; }
+
+  .intro-text { padding: 0.9rem; font-size: 1rem; }
+
+  /* Simplificar sombras y efectos pesados */
+  .comparison-card, .importance-box, .sun-description {
+    padding: 1.25rem;
+    box-shadow: none;
+  }
+
+  /* Ocultar elementos no esenciales para ahorrar espacio */
+  .scroll-indicator { display: none; }
+}
+
+@media (max-width: 360px) {
+  .sun-image-container { width: 200px; height: 200px; }
+  .overlay-content h1 { font-size: 1.4rem; }
+  #startButton { padding: 0.8rem 1.25rem; font-size: 0.95rem; }
+}
+
+/* Ensure minimal touch target size and reduced motion for all small devices */
+@media (max-width: 768px) {
+  #startButton, #audioToggleBtn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Reduce heavy box-shadows to save battery and CPU */
+  .sun-hero-image, .sun-glow-effect, .card-visual, .comparison-card {
+    filter: none;
+    box-shadow: none;
+  }
+
+  /* Make images responsive by default */
+  img { max-width: 100%; height: auto; }
 }
 #audioToggleBtn {
   position: fixed;
