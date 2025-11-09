@@ -1,64 +1,134 @@
 // === REGISTRO DE GSAP ===
 gsap.registerPlugin(ScrollTrigger);
 
-// === CONTROL DE AUDIO (autoplay en silencio + desmutear al primer clic) ===
+// === CONTROL DE INICIO Y AUDIO ===
+const startOverlay = document.getElementById('startOverlay');
+const startButton = document.getElementById('startButton');
 const audioBtn = document.getElementById('audioToggleBtn');
 const bgMusic = document.getElementById('bgMusic');
 
+// Configuración inicial del audio
+if (bgMusic) {
+    bgMusic.loop = true;
+    // Pre-cargar el audio
+    bgMusic.load();
+    // Establecer volumen inicial
+    bgMusic.volume = 1;
+}
+
 // Actualiza el icono según estado
 function updateAudioButton() {
-  if (!audioBtn) return;
-  if (bgMusic.paused) {
-    audioBtn.textContent = '🔇';
-  } else if (bgMusic.muted) {
-    audioBtn.textContent = '🔈';
-  } else {
-    audioBtn.textContent = '🔊';
-  }
-}
-
-// Intentar autoplay en silencio (mejor compatibilidad con políticas modernas)
-async function tryAutoplayMuted() {
-  if (!bgMusic) return;
-  try {
-    bgMusic.muted = true; // reproducir inicialmente silenciado
-    await bgMusic.play();
-    updateAudioButton();
-  } catch (err) {
-    // Autoplay bloqueado: mantenemos en pausa y el botón permitirá iniciar/reproducir
-    bgMusic.pause();
-    bgMusic.muted = true;
-    updateAudioButton();
-  }
-}
-
-// Manejador del botón: si está en pausa intenta reproducir y desmutear; si suena, alterna mute
-if (audioBtn) {
-  audioBtn.addEventListener('click', async () => {
-    if (!bgMusic) return;
-
+    if (!audioBtn) return;
     if (bgMusic.paused) {
-      // Intentar reproducir audible (al usuario inició la interacción)
-      try {
-        bgMusic.muted = false;
-        await bgMusic.play();
-      } catch (e) {
-        // Si falla, intenta reproducir en silencioso y después desmutear
-        try {
-          bgMusic.muted = true;
-          await bgMusic.play();
-          bgMusic.muted = false;
-        } catch (e2) {
-          // sigue en pausa
-        }
-      }
+        audioBtn.textContent = '▶️';
     } else {
-      // Si ya está reproduciendo, alternar mute/unmute
-      bgMusic.muted = !bgMusic.muted;
+        audioBtn.textContent = '⏸️';
     }
+}
 
-    updateAudioButton();
-  });
+// Función para iniciar la experiencia
+async function startExperience() {
+    try {
+        // Configurar audio
+        bgMusic.currentTime = 0;
+        bgMusic.volume = 1;
+        bgMusic.muted = false;
+        
+        // Intentar reproducir con interacción del usuario
+        const playPromise = bgMusic.play();
+        
+        if (playPromise !== undefined) {
+            await playPromise;
+            console.log('Música iniciada correctamente');
+        }
+        
+        // Actualizar UI
+        updateAudioButton();
+        audioBtn.style.opacity = '1';
+        
+        // Ocultar overlay y mostrar contenido
+        startOverlay.classList.add('hidden');
+        document.body.classList.remove('loading');
+        document.body.classList.add('ready');
+        
+    } catch (err) {
+        console.error('Error al iniciar el audio:', err);
+        // Si falla el audio, mostrar el botón para intentar de nuevo
+        audioBtn.style.opacity = '1';
+        updateAudioButton();
+        
+        // Continuar con la experiencia
+        startOverlay.classList.add('hidden');
+        document.body.classList.remove('loading');
+        document.body.classList.add('ready');
+    }
+}
+
+// Intentar reproducir audio automáticamente
+async function tryAutoplay() {
+    if (!bgMusic) return;
+    
+    try {
+        // Configurar el audio antes de reproducir
+        bgMusic.currentTime = 0;
+        bgMusic.volume = 1;
+        bgMusic.muted = false;
+        
+        // Intentar reproducir
+        const playPromise = bgMusic.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                console.log('Reproducción automática exitosa');
+                updateAudioButton();
+            }).catch(error => {
+                console.log('Autoplay inicial bloqueado, intentando en silencio:', error);
+                // Intentar reproducir en silencio si falla el primer intento
+                bgMusic.muted = true;
+                bgMusic.play().then(() => {
+                    console.log('Reproducción en silencio exitosa');
+                    // Intentar desmutear después de un momento
+                    setTimeout(() => {
+                        bgMusic.muted = false;
+                        updateAudioButton();
+                    }, 1000);
+                }).catch(err => {
+                    console.log('Reproducción en silencio fallida:', err);
+                    bgMusic.pause();
+                    updateAudioButton();
+                });
+            });
+        }
+    } catch (err) {
+        console.log('Error general en autoplay:', err);
+        bgMusic.pause();
+        updateAudioButton();
+    }
+}
+
+// Manejador del botón de audio
+if (audioBtn) {
+    audioBtn.addEventListener('click', async () => {
+        if (!bgMusic) return;
+
+        try {
+            if (bgMusic.paused) {
+                // Si está pausado, intentar reproducir
+                bgMusic.muted = false;
+                bgMusic.volume = 1;
+                await bgMusic.play();
+                console.log('Reproducción iniciada por clic en botón');
+            } else {
+                // Si está reproduciendo, pausar
+                bgMusic.pause();
+                console.log('Audio pausado');
+            }
+        } catch (err) {
+            console.error('Error al manejar el audio:', err);
+        }
+
+        updateAudioButton();
+    });
 }
 
 // Ocultar/mostrar el botón en función del scroll: ocultar al bajar, mostrar al subir
@@ -79,8 +149,53 @@ window.addEventListener('scroll', () => {
   lastScroll = current <= 0 ? 0 : current;
 });
 
-// Intentar autoplay en silencio al cargar
-tryAutoplayMuted();
+// Intentar reproducir audio al cargar
+tryAutoplay();
+
+// Al cargarse la página, activar las animaciones y el audio
+window.addEventListener('load', () => {
+  // activar animación de los cuadritos del indicador de scroll
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  if (scrollIndicator) {
+    scrollIndicator.classList.add('ready');
+  }
+
+  // mostrar el botón de audio y activar reproducción
+  if (audioBtn) {
+    setTimeout(() => {
+      audioBtn.style.opacity = '1';
+      audioBtn.style.pointerEvents = 'auto';
+      // Intentar reproducir después de que la página esté completamente cargada
+      tryAutoplay();
+    }, 100);
+  }
+});
+
+// Configurar eventos de inicio
+document.addEventListener('DOMContentLoaded', () => {
+    // Configurar el botón de inicio
+    if (startButton) {
+        startButton.addEventListener('click', () => {
+            console.log('Botón de inicio clickeado');
+            startExperience();
+        });
+    }
+
+    // Ocultar el overlay si se presiona Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && startOverlay) {
+            console.log('Tecla Escape presionada');
+            startExperience();
+        }
+    });
+
+    // Asegurarnos de que el audio esté listo
+    if (bgMusic) {
+        bgMusic.addEventListener('canplaythrough', () => {
+            console.log('Audio listo para reproducir');
+        });
+    }
+});
 
 // Detectar preferencia de movimiento reducido
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -166,6 +281,112 @@ if (!prefersReduced) {
       }
     );
   }
+
+  // === CARROUSEL: imagen del Sol interactiva ===
+  (function() {
+    const img = document.querySelector('.sun-image-container .sun-hero-image');
+    const container = document.querySelector('.sun-image-container');
+    if (!img || !container) return;
+
+    // Lista de imágenes para el carrusel
+    const images = [
+      img.src, // mantener la imagen inicial
+      'images/sol1.jpg',
+      'images/sol2.jpg',
+      'images/tierrasol.jpg'
+    ];
+
+    // Preload
+    const preloaded = [];
+    images.forEach((s) => {
+      const im = new Image();
+      im.src = s;
+      preloaded.push(im);
+    });
+
+    let current = 0;
+    let animating = false;
+    let autoplayTimer = null;
+    const AUTOPLAY_INTERVAL = 3000; // ms entre cambios automáticos
+
+    function goToNext() {
+      if (animating) return;
+      animating = true;
+
+      const next = (current + 1) % images.length;
+
+      // aplicar clase de mini-transición
+      img.classList.add('sun-image-transition');
+
+      // cambiar la imagen a mitad de la transición para que el efecto sea suave
+      setTimeout(() => {
+        img.src = images[next];
+        current = next;
+      }, 220);
+
+      // quitar la clase cuando termine la transición CSS
+      setTimeout(() => {
+        img.classList.remove('sun-image-transition');
+        animating = false;
+      }, 520);
+    }
+
+    // Iniciar/detener autoplay
+    function startAutoplay() {
+      if (autoplayTimer) return;
+      autoplayTimer = setInterval(goToNext, AUTOPLAY_INTERVAL);
+    }
+
+    function stopAutoplay() {
+      if (!autoplayTimer) return;
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+
+    // Pausar cuando el usuario interactúa
+    container.addEventListener('mouseenter', stopAutoplay);
+    container.addEventListener('touchstart', stopAutoplay);
+
+    // Reanudar cuando termina la interacción
+    container.addEventListener('mouseleave', startAutoplay);
+    container.addEventListener('touchend', () => {
+      // pequeña demora para evitar conflicto con el click
+      setTimeout(startAutoplay, 100);
+    });
+
+    // Pausar cuando la pestaña no está visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    });
+
+    // avanzar al click
+    img.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToNext();
+      // Reiniciar temporizador después del click
+      stopAutoplay();
+      startAutoplay();
+    });
+
+    // accesibilidad: también avanzar con Enter/Space cuando el contenedor tiene foco
+    container.setAttribute('tabindex', '0');
+    container.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.code === 'Space' || ev.key === ' ') {
+        ev.preventDefault();
+        goToNext();
+        // Reiniciar temporizador después de avance manual
+        stopAutoplay();
+        startAutoplay();
+      }
+    });
+
+    // Iniciar autoplay
+    startAutoplay();
+  })();
 
   // === ANIMACIÓN DEL TÍTULO PRINCIPAL ===
   const mainTitle = document.querySelector('.main-title');
@@ -740,3 +961,1135 @@ console.log('%cPágina creada con animaciones GSAP y ScrollTrigger', 'font-size:
       mute.style.display = 'none';
       boton.style.display = 'block';
     });
+
+  
+// === MENSAJE EN CONSOLA ===
+console.log('%c🌟 El Sol: Nuestra Estrella Vital 🌟', 'font-size: 20px; font-weight: bold; color: #ff8c42;');
+console.log('%cPágina creada con animaciones GSAP y ScrollTrigger', 'font-size: 14px; color: #ffc837;');
+
+// === ANIMACIONES TEAM DIAMANTE ===
+if (!prefersReduced) {
+  // Animación de las tarjetas del equipo
+  gsap.utils.toArray('.team-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 80,
+        rotationY: -20,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotationY: 0,
+        scale: 1,
+        duration: 0.8,
+        delay: i * 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de capítulos de la historia
+  gsap.utils.toArray('.story-chapter').forEach((chapter) => {
+    gsap.fromTo(chapter,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.95
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: chapter,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de tarjetas de tipos de estrellas
+  gsap.utils.toArray('.star-type-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        scale: 0.8,
+        y: 40
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.6,
+        delay: i * 0.08,
+        ease: "back.out(1.4)",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de legacy cards
+  gsap.utils.toArray('.legacy-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        x: -50,
+        rotationY: -15
+      },
+      {
+        opacity: 1,
+        x: 0,
+        rotationY: 0,
+        duration: 0.7,
+        delay: i * 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de la barra de progreso
+  const phaseProgress = document.querySelector('.phase-progress');
+  if (phaseProgress) {
+    gsap.fromTo(phaseProgress,
+      {
+        width: '0%'
+      },
+      {
+        width: '46%',
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: phaseProgress,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  }
+
+  // Animación del box del astronauta
+  gsap.utils.toArray('.astronaut-box').forEach((box) => {
+    gsap.fromTo(box,
+      {
+        opacity: 0,
+        y: 50,
+        scale: 0.95
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: box,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de info cards
+  gsap.utils.toArray('.info-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        delay: i * 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de las zonas habitables
+  gsap.utils.toArray('.zone').forEach((zone, i) => {
+    gsap.fromTo(zone,
+      {
+        opacity: 0,
+        x: -30,
+        scale: 0.95
+      },
+      {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: 0.6,
+        delay: i * 0.2,
+        ease: "back.out(1.3)",
+        scrollTrigger: {
+          trigger: zone,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de las tarjetas de planetas
+  gsap.utils.toArray('.planet-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        x: -60,
+        rotationY: -10
+      },
+      {
+        opacity: 1,
+        x: 0,
+        rotationY: 0,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Efecto hover especial para planetas habitables
+    if (card.classList.contains('habitable-planet')) {
+      gsap.to(card, {
+        boxShadow: "0 0 30px rgba(0, 255, 100, 0.3), 0 10px 40px rgba(0, 255, 100, 0.2)",
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%"
+        }
+      });
+    }
+  });
+
+  // Animación de tarjetas de exoplanetas
+  gsap.utils.toArray('.exoplanet-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9,
+        rotationX: -15
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotationX: 0,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de stat boxes
+  gsap.utils.toArray('.stat-box').forEach((box, i) => {
+    gsap.fromTo(box,
+      {
+        opacity: 0,
+        scale: 0.5,
+        rotation: -10
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 0.6,
+        delay: i * 0.15,
+        ease: "back.out(1.5)",
+        scrollTrigger: {
+          trigger: box,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Animación de números contadores
+    const statNumber = box.querySelector('.stat-number');
+    if (statNumber) {
+      const finalNumber = statNumber.textContent;
+      gsap.fromTo(statNumber,
+        {
+          textContent: '0'
+        },
+        {
+          textContent: finalNumber,
+          duration: 2,
+          ease: "power2.out",
+          snap: { textContent: 1 },
+          scrollTrigger: {
+            trigger: box,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+  });
+
+  // Animación del mission badge
+  const missionBadge = document.querySelector('.mission-badge');
+  if (missionBadge) {
+    gsap.fromTo(missionBadge,
+      {
+        opacity: 0,
+        scale: 0.5,
+        rotation: -10
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 1,
+        ease: "elastic.out(1, 0.5)",
+        scrollTrigger: {
+          trigger: missionBadge,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Pulsación continua del badge
+    gsap.to(missionBadge, {
+      scale: 1.05,
+      duration: 1.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  }
+
+  // Animación de note cards
+  gsap.utils.toArray('.note-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 30,
+        scale: 0.95
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        delay: i * 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 90%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación del cosmic cycle
+  const cycleSteps = document.querySelectorAll('.cycle-step');
+  cycleSteps.forEach((step, i) => {
+    gsap.fromTo(step,
+      {
+        opacity: 0,
+        scale: 0.7,
+        y: -20
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.5,
+        delay: i * 0.2,
+        ease: "back.out(1.3)",
+        scrollTrigger: {
+          trigger: '.cosmic-cycle',
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Efecto parallax en secciones del team
+  gsap.utils.toArray('.section-team-diamante, .section-historia, .section-trappist').forEach((section) => {
+    gsap.to(section, {
+      y: -60,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5
+      }
+    });
+  });
+}
+
+// === INTERACCIONES ADICIONALES ===
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Smooth scroll para el botón Team Diamante
+  const teamBtn = document.querySelector('.team-diamante-btn');
+  if (teamBtn) {
+    teamBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  // Smooth scroll para los enlaces de las team cards
+  document.querySelectorAll('.team-card-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Hover effects para star type cards
+  document.querySelectorAll('.star-type-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      if (!prefersReduced) {
+        gsap.to(this.querySelector('.star-icon'), {
+          scale: 1.3,
+          rotation: 360,
+          duration: 0.6,
+          ease: "back.out(1.5)"
+        });
+      }
+    });
+
+    card.addEventListener('mouseleave', function() {
+      if (!prefersReduced) {
+        gsap.to(this.querySelector('.star-icon'), {
+          scale: 1,
+          rotation: 0,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      }
+    });
+  });
+
+  // Hover effects para exoplanet cards
+  document.querySelectorAll('.exoplanet-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      if (!prefersReduced) {
+        gsap.to(this.querySelector('.exoplanet-icon'), {
+          scale: 1.2,
+          rotation: 15,
+          duration: 0.4,
+          ease: "back.out(1.3)"
+        });
+      }
+    });
+
+    card.addEventListener('mouseleave', function() {
+      if (!prefersReduced) {
+        gsap.to(this.querySelector('.exoplanet-icon'), {
+          scale: 1,
+          rotation: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    });
+  });
+});
+
+
+  
+// === MENSAJE EN CONSOLA ===
+console.log('%c🌟 El Sol: Nuestra Estrella Vital 🌟', 'font-size: 20px; font-weight: bold; color: #ff8c42;');
+console.log('%cPágina creada con animaciones GSAP y ScrollTrigger', 'font-size: 14px; color: #ffc837;');
+
+
+
+  
+// === MENSAJE EN CONSOLA ===
+console.log('%c🌟 El Sol: Nuestra Estrella Vital 🌟', 'font-size: 20px; font-weight: bold; color: #ff8c42;');
+console.log('%cPágina creada con animaciones GSAP y ScrollTrigger', 'font-size: 14px; color: #ffc837;');
+
+// === ANIMACIONES TEAM DIAMANTE ===
+if (!prefersReduced) {
+  // Función para animar las secciones reveladas
+  function animateRevealedSections() {
+    // Animación de las tarjetas del equipo
+    gsap.utils.toArray('.revealed .team-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          y: 80,
+          rotationY: -20,
+          scale: 0.9
+        },
+        {
+          opacity: 1,
+          y: 0,
+          rotationY: 0,
+          scale: 1,
+          duration: 0.8,
+          delay: i * 0.2,
+          ease: "power3.out"
+        }
+      );
+    });
+
+    // Animación de capítulos de la historia
+    gsap.utils.toArray('.revealed .story-chapter').forEach((chapter, i) => {
+      gsap.fromTo(chapter,
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.95
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          delay: i * 0.1,
+          ease: "power3.out"
+        }
+      );
+    });
+
+    // Todas las demás animaciones para secciones reveladas...
+    gsap.utils.toArray('.revealed .star-type-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          scale: 0.8,
+          y: 40
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.6,
+          delay: i * 0.08,
+          ease: "back.out(1.4)"
+        }
+      );
+    });
+
+    gsap.utils.toArray('.revealed .legacy-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          x: -50,
+          rotationY: -15
+        },
+        {
+          opacity: 1,
+          x: 0,
+          rotationY: 0,
+          duration: 0.7,
+          delay: i * 0.12,
+          ease: "power3.out"
+        }
+      );
+    });
+
+    const phaseProgress = document.querySelector('.revealed .phase-progress');
+    if (phaseProgress) {
+      gsap.fromTo(phaseProgress,
+        {
+          width: '0%'
+        },
+        {
+          width: '46%',
+          duration: 2,
+          ease: "power2.out"
+        }
+      );
+    }
+
+    gsap.utils.toArray('.revealed .info-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.9
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          delay: i * 0.15,
+          ease: "power3.out"
+        }
+      );
+    });
+
+    gsap.utils.toArray('.revealed .planet-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          x: -60,
+          rotationY: -10
+        },
+        {
+          opacity: 1,
+          x: 0,
+          rotationY: 0,
+          duration: 0.8,
+          delay: i * 0.1,
+          ease: "power3.out"
+        }
+      );
+    });
+
+    gsap.utils.toArray('.revealed .exoplanet-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.9,
+          rotationX: -15
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotationX: 0,
+          duration: 0.8,
+          delay: i * 0.1,
+          ease: "power3.out"
+        }
+      );
+    });
+  }
+
+  // Observar cuando se revelan las secciones
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.target.classList.contains('revealed')) {
+        animateRevealedSections();
+      }
+    });
+  });
+
+  // Observar cambios en las secciones ocultas
+  document.querySelectorAll('.hidden-section').forEach(section => {
+    observer.observe(section, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  // Animación de las tarjetas del equipo (solo si ya están reveladas al cargar)
+  gsap.utils.toArray('.team-card:not(.hidden-section .team-card)').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 80,
+        rotationY: -20,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        rotationY: 0,
+        scale: 1,
+        duration: 0.8,
+        delay: i * 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de capítulos de la historia (solo si ya están revelados)
+  gsap.utils.toArray('.story-chapter:not(.hidden-section .story-chapter)').forEach((chapter) => {
+    gsap.fromTo(chapter,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.95
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: chapter,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de tarjetas de tipos de estrellas (solo si ya están reveladas)
+  gsap.utils.toArray('.star-type-card:not(.hidden-section .star-type-card)').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        scale: 0.8,
+        y: 40
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.6,
+        delay: i * 0.08,
+        ease: "back.out(1.4)",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de legacy cards (solo si ya están reveladas)
+  gsap.utils.toArray('.legacy-card:not(.hidden-section .legacy-card)').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        x: -50,
+        rotationY: -15
+      },
+      {
+        opacity: 1,
+        x: 0,
+        rotationY: 0,
+        duration: 0.7,
+        delay: i * 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de la barra de progreso (solo si ya está revelada)
+  const phaseProgress = document.querySelector('.phase-progress:not(.hidden-section .phase-progress)');
+  if (phaseProgress) {
+    gsap.fromTo(phaseProgress,
+      {
+        width: '0%'
+      },
+      {
+        width: '46%',
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: phaseProgress,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  }
+
+  // Animación del box del astronauta (solo si ya está revelado)
+  gsap.utils.toArray('.astronaut-box:not(.hidden-section .astronaut-box)').forEach((box) => {
+    gsap.fromTo(box,
+      {
+        opacity: 0,
+        y: 50,
+        scale: 0.95
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: box,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de info cards
+  gsap.utils.toArray('.info-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        delay: i * 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de las zonas habitables
+  gsap.utils.toArray('.zone').forEach((zone, i) => {
+    gsap.fromTo(zone,
+      {
+        opacity: 0,
+        x: -30,
+        scale: 0.95
+      },
+      {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: 0.6,
+        delay: i * 0.2,
+        ease: "back.out(1.3)",
+        scrollTrigger: {
+          trigger: zone,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de las tarjetas de planetas
+  gsap.utils.toArray('.planet-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        x: -60,
+        rotationY: -10
+      },
+      {
+        opacity: 1,
+        x: 0,
+        rotationY: 0,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Efecto hover especial para planetas habitables
+    if (card.classList.contains('habitable-planet')) {
+      gsap.to(card, {
+        boxShadow: "0 0 30px rgba(0, 255, 100, 0.3), 0 10px 40px rgba(0, 255, 100, 0.2)",
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%"
+        }
+      });
+    }
+  });
+
+  // Animación de tarjetas de exoplanetas
+  gsap.utils.toArray('.exoplanet-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 60,
+        scale: 0.9,
+        rotationX: -15
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotationX: 0,
+        duration: 0.8,
+        delay: i * 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación de stat boxes
+  gsap.utils.toArray('.stat-box').forEach((box, i) => {
+    gsap.fromTo(box,
+      {
+        opacity: 0,
+        scale: 0.5,
+        rotation: -10
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 0.6,
+        delay: i * 0.15,
+        ease: "back.out(1.5)",
+        scrollTrigger: {
+          trigger: box,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Animación de números contadores
+    const statNumber = box.querySelector('.stat-number');
+    if (statNumber) {
+      const finalNumber = statNumber.textContent;
+      gsap.fromTo(statNumber,
+        {
+          textContent: '0'
+        },
+        {
+          textContent: finalNumber,
+          duration: 2,
+          ease: "power2.out",
+          snap: { textContent: 1 },
+          scrollTrigger: {
+            trigger: box,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+  });
+
+  // Animación del mission badge
+  const missionBadge = document.querySelector('.mission-badge');
+  if (missionBadge) {
+    gsap.fromTo(missionBadge,
+      {
+        opacity: 0,
+        scale: 0.5,
+        rotation: -10
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 1,
+        ease: "elastic.out(1, 0.5)",
+        scrollTrigger: {
+          trigger: missionBadge,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+
+    // Pulsación continua del badge
+    gsap.to(missionBadge, {
+      scale: 1.05,
+      duration: 1.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  }
+
+  // Animación de note cards
+  gsap.utils.toArray('.note-card').forEach((card, i) => {
+    gsap.fromTo(card,
+      {
+        opacity: 0,
+        y: 30,
+        scale: 0.95
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        delay: i * 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 90%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Animación del cosmic cycle
+  const cycleSteps = document.querySelectorAll('.cycle-step');
+  cycleSteps.forEach((step, i) => {
+    gsap.fromTo(step,
+      {
+        opacity: 0,
+        scale: 0.7,
+        y: -20
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.5,
+        delay: i * 0.2,
+        ease: "back.out(1.3)",
+        scrollTrigger: {
+          trigger: '.cosmic-cycle',
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  });
+
+  // Efecto parallax en secciones del team
+  gsap.utils.toArray('.section-team-diamante, .section-historia, .section-trappist').forEach((section) => {
+    gsap.to(section, {
+      y: -60,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5
+      }
+    });
+  });
+}
+
+// === INTERACCIONES ADICIONALES ===
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Smooth scroll para el botón Team Diamante
+  const teamBtn = document.querySelector('.team-diamante-btn');
+  if (teamBtn) {
+    teamBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  // Smooth scroll para los enlaces de las team cards
+  document.querySelectorAll('.team-card-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Hover effects para star type cards
+  document.querySelectorAll('.star-type-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      if (!prefersReduced) {
+        gsap.to(this.querySelector('.star-icon'), {
+          scale: 1.3,
+          rotation: 360,
+          duration: 0.6,
+          ease: "back.out(1.5)"
+        });
+      }
+    });
+
+    card.addEventListener('mouseleave', function() {
+      if (!prefersReduced) {
+        gsap.to(this.querySelector('.star-icon'), {
+          scale: 1,
+          rotation: 0,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      }
+    });
+  });
+
+  // Hover effects para exoplanet cards
+  document.querySelectorAll('.exoplanet-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      if (!prefersReduced) {
+        gsap.to(this.querySelector('.exoplanet-icon'), {
+          scale: 1.2,
+          rotation: 15,
+          duration: 0.4,
+          ease: "back.out(1.3)"
+        });
+      }
+    });
+
+    card.addEventListener('mouseleave', function() {
+      if (!prefersReduced) {
+        gsap.to(this.querySelector('.exoplanet-icon'), {
+          scale: 1,
+          rotation: 0,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    });
+  });
+});

@@ -7,11 +7,24 @@
   
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="loading">
+  <!-- Overlay de inicio -->
+  <div id="startOverlay" class="start-overlay">
+    <div class="overlay-content">
+      <h1>El Sol: Nuestra Estrella</h1>
+      <button id="startButton">
+        Iniciar Experiencia
+        <span class="button-note">🔊 con sonido ;)</span>
+      </button>
+    </div>
+  </div>
+
   <div class="stars"></div>
   <div class="cosmic-bg"></div>
-  <button id="audioToggleBtn" aria-label="Alternar audio">🔇</button>
-  <audio id="bgMusic" src="sound/angelical.mp3" loop></audio>
+  <button id="audioToggleBtn" aria-label="Alternar audio" style="opacity: 0;">⏸️</button>
+  <audio id="bgMusic" preload="auto" loop>
+    <source src="sound/angelical.mp3" type="audio/mp3">
+</audio>
   <!-- SECCIÓN HERO CON IMAGEN DEL SOL -->
   <section class="fullscreen hero-section">
     <div class="container">
@@ -496,7 +509,935 @@
       </div>
     </div>
   </section>
+  </div>
+    </div>
+  </section>
 
+  <!-- SECCIÓN: TEAM DIAMANTE -->
+  <section id="team-diamante" class="fullscreen section-team-diamante">
+    <div class="container">
+      <div class="section-number">TEAM</div>
+      <h2 class="section-title">💎 Team Diamante 💎</h2>
+      
+      <p class="intro-text">
+        Descubre los secretos del cosmos a través de historias estelares y mundos lejanos. 
+        Explora el ciclo de vida de las estrellas y los exoplanetas que podrían albergar vida.
+      </p>
+
+      <div class="team-content-grid">
+        <!-- Card 1: Historia del Sol -->
+        <div class="team-card">
+          <div class="team-card-icon">⭐</div>
+          <h3>La Historia del Sol</h3>
+          <p class="team-card-description">
+            Descubre el viaje épico de una estrella desde su nacimiento hasta su destino final
+          </p>
+          <a href="#historia-sol" class="team-card-link">
+            Explorar Historia
+            <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <!-- Card 2: Sistema TRAPPIST-1 -->
+        <div class="team-card">
+          <div class="team-card-icon">🌍</div>
+          <h3>Sistema TRAPPIST-1</h3>
+          <p class="team-card-description">
+            Paula aterriza en un exoplaneta. Calibremos el sistema y encontremos mundos habitables
+          </p>
+          <a href="#trappist-1" class="team-card-link">
+            Calibrar Sistema
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: HISTORIA DEL SOL -->
+  <section id="historia-sol" class="fullscreen section-historia">
+    <div class="container">
+      <div class="section-number">06</div>
+      <h2 class="section-title">🌟 La Historia de una Estrella 🌟</h2>
+      
+      <div class="story-intro">
+        <div class="narrator-box">
+          <div class="sun-narrator">☀️</div>
+          <p class="narrator-text">
+            "Hola, soy el Sol. Déjame contarte la historia épica de las estrellas, seres cósmicos 
+            como yo que iluminan el universo. Es una historia de fuego, fusión y transformación..."
+          </p>
+        </div>
+      </div>
+
+      <!-- Nacimiento -->
+      <div class="story-chapter">
+        <div class="chapter-number">Capítulo 1</div>
+        <h3 class="chapter-title">🌌 El Nacimiento: De la Nebulosa a la Estrella</h3>
+        
+        <div class="story-content">
+          <div class="story-visual">
+            <div class="nebula-animation">
+              <div class="cloud">☁️</div>
+              <div class="particles">✨✨✨</div>
+              <div class="arrow-transform">↓</div>
+              <div class="proto-star">🔴</div>
+            </div>
+          </div>
+          
+          <div class="story-text">
+            <div class="narrator-quote">
+              <span class="quote-mark">"</span>
+              <p>
+                Todo comienza en una gigantesca nube de gas y polvo llamada <strong>nebulosa</strong>. 
+                Hace 4,600 millones de años, yo era parte de una de estas nubes. Por alguna razón 
+                —quizás la explosión de una estrella cercana— la nube comenzó a colapsar por su propia gravedad.
+              </p>
+            </div>
+            
+            <div class="info-box">
+              <h4>🔬 El Proceso</h4>
+              <ul>
+                <li><strong>Colapso gravitacional:</strong> La nube se contrae y gira más rápido</li>
+                <li><strong>Formación del disco:</strong> El material forma un disco giratorio</li>
+                <li><strong>Protoestrella:</strong> En el centro, la temperatura sube a millones de grados</li>
+                <li><strong>Ignición:</strong> Cuando alcanza ~10 millones °C, ¡comienza la fusión nuclear!</li>
+              </ul>
+            </div>
+
+            <div class="narrator-quote">
+              <span class="quote-mark">"</span>
+              <p>
+                Cuando la temperatura de mi núcleo alcanzó los 10 millones de grados Celsius, 
+                algo mágico sucedió: ¡los átomos de hidrógeno comenzaron a fusionarse en helio! 
+                Había nacido oficialmente como estrella. Este momento se llama <strong>secuencia principal</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tipos de Estrellas -->
+      <div class="story-chapter">
+        <div class="chapter-number">Capítulo 2</div>
+        <h3 class="chapter-title">🎨 Los Tipos: Una Familia Diversa</h3>
+        
+        <div class="stars-types-grid">
+          <div class="star-type-card type-o">
+            <div class="star-icon">⭐</div>
+            <h4>Tipo O</h4>
+            <p class="temp">30,000-50,000°C</p>
+            <p class="desc">Azules, masivas, viven solo millones de años</p>
+            <p class="mass">30-100+ M☉</p>
+          </div>
+
+          <div class="star-type-card type-b">
+            <div class="star-icon">⭐</div>
+            <h4>Tipo B</h4>
+            <p class="temp">10,000-30,000°C</p>
+            <p class="desc">Blanco-azules, muy luminosas</p>
+            <p class="mass">3-30 M☉</p>
+          </div>
+
+          <div class="star-type-card type-a">
+            <div class="star-icon">⭐</div>
+            <h4>Tipo A</h4>
+            <p class="temp">7,500-10,000°C</p>
+            <p class="desc">Blancas, como Sirio y Vega</p>
+            <p class="mass">1.5-3 M☉</p>
+          </div>
+
+          <div class="star-type-card type-f">
+            <div class="star-icon">⭐</div>
+            <h4>Tipo F</h4>
+            <p class="temp">6,000-7,500°C</p>
+            <p class="desc">Blanco-amarillas</p>
+            <p class="mass">1.0-1.5 M☉</p>
+          </div>
+
+          <div class="star-type-card type-g current">
+            <div class="star-icon">☀️</div>
+            <h4>Tipo G (¡Yo!)</h4>
+            <p class="temp">5,200-6,000°C</p>
+            <p class="desc">Amarillas, enanas amarillas</p>
+            <p class="mass">0.8-1.0 M☉</p>
+            <div class="you-are-here">👈 ESTOY AQUÍ</div>
+          </div>
+
+          <div class="star-type-card type-k">
+            <div class="star-icon">🟠</div>
+            <h4>Tipo K</h4>
+            <p class="temp">3,700-5,200°C</p>
+            <p class="desc">Naranja, muy comunes</p>
+            <p class="mass">0.5-0.8 M☉</p>
+          </div>
+
+          <div class="star-type-card type-m">
+            <div class="star-icon">🔴</div>
+            <h4>Tipo M</h4>
+            <p class="temp">2,400-3,700°C</p>
+            <p class="desc">Rojas, enanas rojas, viven billones de años</p>
+            <p class="mass">0.08-0.5 M☉</p>
+          </div>
+        </div>
+
+        <div class="narrator-quote">
+          <span class="quote-mark">"</span>
+          <p>
+            Yo soy una estrella de <strong>tipo G2V</strong>, también conocida como enana amarilla. 
+            Actualmente estoy en la <strong>secuencia principal</strong>, la etapa más larga y estable 
+            de la vida de una estrella. He estado aquí por 4,600 millones de años, ¡y me quedan otros 
+            5,000 millones más antes de evolucionar!
+          </p>
+        </div>
+      </div>
+
+      <!-- La Muerte -->
+      <div class="story-chapter">
+        <div class="chapter-number">Capítulo 3</div>
+        <h3 class="chapter-title">💀 La Muerte: El Final Depende de la Masa</h3>
+        
+        <div class="death-paths">
+          <div class="death-path path-low">
+            <h4>🟡 Estrellas de Baja Masa (0.08-8 M☉)</h4>
+            <div class="death-timeline">
+              <div class="death-stage">
+                <span class="stage-icon">⭐</span>
+                <span class="stage-name">Secuencia Principal</span>
+              </div>
+              <span class="timeline-arrow">→</span>
+              <div class="death-stage">
+                <span class="stage-icon">🔴</span>
+                <span class="stage-name">Gigante Roja</span>
+              </div>
+              <span class="timeline-arrow">→</span>
+              <div class="death-stage">
+                <span class="stage-icon">🌈</span>
+                <span class="stage-name">Nebulosa Planetaria</span>
+              </div>
+              <span class="timeline-arrow">→</span>
+              <div class="death-stage">
+                <span class="stage-icon">⚪</span>
+                <span class="stage-name">Enana Blanca</span>
+              </div>
+            </div>
+            
+            <div class="narrator-quote">
+              <span class="quote-mark">"</span>
+              <p>
+                Este será <strong>mi destino</strong>. En 5,000 millones de años, mi hidrógeno se agotará. 
+                Mi núcleo se contraerá y calentará, mientras mis capas externas se expandirán. 
+                Me convertiré en una <strong>gigante roja</strong> tan grande que ¡tragaré a Mercurio, Venus 
+                y posiblemente la Tierra! Después, expulsaré mis capas externas formando una hermosa 
+                <strong>nebulosa planetaria</strong>, y mi núcleo quedará como una <strong>enana blanca</strong> 
+                —una estrella del tamaño de la Tierra pero increíblemente densa.
+              </p>
+            </div>
+          </div>
+
+          <div class="death-path path-high">
+            <h4>🔵 Estrellas de Alta Masa (8+ M☉)</h4>
+            <div class="death-timeline">
+              <div class="death-stage">
+                <span class="stage-icon">⭐</span>
+                <span class="stage-name">Secuencia Principal</span>
+              </div>
+              <span class="timeline-arrow">→</span>
+              <div class="death-stage">
+                <span class="stage-icon">🔴</span>
+                <span class="stage-name">Supergigante</span>
+              </div>
+              <span class="timeline-arrow">→</span>
+              <div class="death-stage">
+                <span class="stage-icon">💥</span>
+                <span class="stage-name">Supernova</span>
+              </div>
+              <span class="timeline-arrow">→</span>
+              <div class="death-stage">
+                <span class="stage-icon">⚫</span>
+                <span class="stage-name">Estrella de Neutrones o Agujero Negro</span>
+              </div>
+            </div>
+            
+            <div class="info-box">
+              <h4>💥 El Espectáculo Final</h4>
+              <p>
+                Las estrellas masivas tienen finales dramáticos. Después de quemar hidrógeno, 
+                fusionan elementos más pesados: helio → carbono → oxígeno → neón → magnesio → silicio → hierro. 
+                Cuando el núcleo se llena de hierro (que no puede fusionarse liberando energía), 
+                colapsa instantáneamente. El resultado: ¡una <strong>supernova</strong>! 
+                La explosión es tan brillante que puede superar a toda una galaxia por semanas.
+              </p>
+              <p>
+                Si la estrella tenía 8-20 M☉, el núcleo se convierte en una <strong>estrella de neutrones</strong> 
+                (¡del tamaño de una ciudad pero con más masa que el Sol!). Si tenía más de 20 M☉, 
+                el colapso es tan extremo que forma un <strong>agujero negro</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post-Muerte -->
+      <div class="story-chapter">
+        <div class="chapter-number">Capítulo 4</div>
+        <h3 class="chapter-title">♻️ Post-Muerte: El Legado Estelar</h3>
+        
+        <div class="legacy-content">
+          <div class="narrator-quote">
+            <span class="quote-mark">"</span>
+            <p>
+              La muerte de una estrella no es el final, ¡es el comienzo de algo nuevo! 
+              Los elementos forjados en nuestros núcleos —carbono, oxígeno, hierro, oro— 
+              se dispersan por el espacio cuando morimos. Estos materiales forman nuevas 
+              nebulosas que, a su vez, crearán nuevas estrellas y planetas.
+            </p>
+          </div>
+
+          <div class="legacy-grid">
+            <div class="legacy-card">
+              <div class="legacy-icon">⚪</div>
+              <h4>Enanas Blancas</h4>
+              <p>
+                Núcleos densos que se enfrían lentamente durante billones de años. 
+                Una cucharada de su material pesaría toneladas en la Tierra. 
+                Eventualmente se convierten en "enanas negras" (aunque el universo 
+                aún no es lo suficientemente viejo para que existan).
+              </p>
+            </div>
+
+            <div class="legacy-card">
+              <div class="legacy-icon">🌀</div>
+              <h4>Estrellas de Neutrones</h4>
+              <p>
+                Los objetos más densos del universo después de los agujeros negros. 
+                Giran a velocidades increíbles (¡cientos de veces por segundo!) y 
+                emiten pulsos de radiación. Las llamamos <strong>púlsares</strong> 
+                cuando detectamos estos pulsos.
+              </p>
+            </div>
+
+            <div class="legacy-card">
+              <div class="legacy-icon">⚫</div>
+              <h4>Agujeros Negros</h4>
+              <p>
+                Regiones del espacio donde la gravedad es tan intensa que ni la luz 
+                puede escapar. El horizonte de eventos marca el punto sin retorno. 
+                En el centro de la mayoría de las galaxias, incluida la Vía Láctea, 
+                hay agujeros negros supermasivos.
+              </p>
+            </div>
+
+            <div class="legacy-card">
+              <div class="legacy-icon">🌌</div>
+              <h4>Nebulosas</h4>
+              <p>
+                Las hermosas nubes de gas y polvo que quedan después de la muerte estelar. 
+                Son cunas de nuevas estrellas y planetas. Sin las generaciones anteriores 
+                de estrellas, no existirían los elementos necesarios para la vida.
+              </p>
+            </div>
+          </div>
+
+          <div class="cosmic-cycle">
+            <h4>♻️ El Ciclo Cósmico</h4>
+            <div class="cycle-diagram">
+              <div class="cycle-step">Nebulosa</div>
+              <span class="cycle-arrow">→</span>
+              <div class="cycle-step">Estrella</div>
+              <span class="cycle-arrow">→</span>
+              <div class="cycle-step">Supernova/Gigante Roja</div>
+              <span class="cycle-arrow">→</span>
+              <div class="cycle-step">Elementos Dispersos</div>
+              <span class="cycle-arrow">→</span>
+              <div class="cycle-step">Nueva Nebulosa</div>
+            </div>
+            <p class="cycle-text">
+              "Somos polvo de estrellas. Los átomos de carbono en nuestros cuerpos, el calcio 
+              en nuestros huesos, el hierro en nuestra sangre... todos se forjaron en el corazón 
+              de estrellas moribundas hace miles de millones de años. Al mirar al cielo nocturno, 
+              no solo ves estrellas, ¡ves tu propio origen!" — <strong>El Sol</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mi Fase Actual -->
+      <div class="story-chapter final-chapter">
+        <div class="chapter-number">Epílogo</div>
+        <h3 class="chapter-title">📍 Mi Ubicación Actual</h3>
+        
+        <div class="current-phase">
+          <div class="phase-visual">
+            <div class="sun-current">☀️</div>
+            <div class="phase-indicator">
+              <div class="phase-bar">
+                <div class="phase-progress" style="width: 46%"></div>
+              </div>
+              <p class="phase-label">46% del camino en la Secuencia Principal</p>
+            </div>
+          </div>
+
+          <div class="phase-details">
+            <h4>🌟 Mi Estado Actual: Secuencia Principal (Edad Madura)</h4>
+            
+            <div class="status-grid">
+              <div class="status-item">
+                <span class="status-label">Edad</span>
+                <span class="status-value">4,600 millones de años</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Tipo Espectral</span>
+                <span class="status-value">G2V (Enana Amarilla)</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Fase</span>
+                <span class="status-value">Secuencia Principal</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Combustible</span>
+                <span class="status-value">Fusión de H → He en el núcleo</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Tiempo Restante</span>
+                <span class="status-value">~5,000 millones de años</span>
+              </div>
+              <div class="status-item">
+                <span class="status-label">Futuro</span>
+                <span class="status-value">Gigante Roja → Enana Blanca</span>
+              </div>
+            </div>
+
+            <div class="narrator-quote final-quote">
+              <span class="quote-mark">"</span>
+              <p>
+                Estoy en mi mejor momento. Llevo 4,600 millones de años fusionando 
+                600 millones de toneladas de hidrógeno en helio cada segundo, 
+                liberando la energía que hace posible la vida en la Tierra. 
+                Soy una estrella mediana, ni muy grande ni muy pequeña, lo que me 
+                permite vivir lo suficiente para que la vida evolucione en los planetas 
+                que me rodean. Aún me quedan 5,000 millones de años de estabilidad. 
+                <strong>Disfruten el espectáculo mientras dure.</strong> ☀️
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: SISTEMA TRAPPIST-1 -->
+  <section id="trappist-1" class="fullscreen section-trappist">
+    <div class="container">
+      <div class="section-number">07</div>
+      <h2 class="section-title">🌍 Sistema TRAPPIST-1: Calibración de Aterrizaje</h2>
+      
+      <div class="mission-intro">
+        <div class="astronaut-box">
+          <div class="astronaut-icon">👩‍🚀</div>
+          <p class="astronaut-text">
+            <strong>Paula desde el espacio:</strong> "Control, he llegado al sistema TRAPPIST-1. 
+            Necesito calibrar el aterrizaje. ¿Pueden verificar las condiciones del sistema y 
+            confirmar qué planetas están en la zona habitable?"
+          </p>
+        </div>
+      </div>
+
+      <!-- Información del Sistema -->
+      <div class="system-overview">
+        <h3>📡 Datos del Sistema TRAPPIST-1</h3>
+        
+        <div class="system-info-grid">
+          <div class="info-card">
+            <div class="info-icon">⭐</div>
+            <h4>La Estrella</h4>
+            <p><strong>TRAPPIST-1</strong></p>
+            <ul>
+              <li>Tipo: Enana roja ultrafría (M8V)</li>
+              <li>Masa: 0.089 M☉ (9% del Sol)</li>
+              <li>Temperatura: ~2,566 K (~2,293°C)</li>
+              <li>Edad: 7,600 millones de años</li>
+              <li>Distancia: 40.7 años luz de la Tierra</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">🔍</div>
+            <h4>Descubrimiento</h4>
+            <ul>
+              <li>Descubierto: 2016 (3 planetas)</li>
+              <li>Confirmación completa: 2017 (7 planetas)</li>
+              <li>Método: Tránsito (con telescopio TRAPPIST)</li>
+              <li>NASA Spitzer: Confirmación y caracterización</li>
+              <li>Constelación: Acuario</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">🎯</div>
+            <h4>Importancia</h4>
+            <ul>
+              <li>7 planetas del tamaño de la Tierra</li>
+              <li>3 en la zona habitable</li>
+              <li>Todos rocosos y templados</li>
+              <li>Sistema compacto: todos orbitan más cerca que Mercurio al Sol</li>
+              <li>Candidatos para búsqueda de vida</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zona Habitable -->
+      <div class="habitable-zone-section">
+        <h3>🌡️ ¿Qué es la Zona Habitable?</h3>
+        
+        <div class="hz-explanation">
+          <div class="hz-visual">
+            <div class="star-center">⭐</div>
+            <div class="zone too-hot">🔥 Demasiado Caliente</div>
+            <div class="zone habitable">💚 ZONA HABITABLE</div>
+            <div class="zone too-cold">❄️ Demasiado Frío</div>
+          </div>
+
+          <div class="hz-description">
+            <p>
+              La <strong>zona habitable</strong> (o "zona Ricitos de Oro") es la región alrededor 
+              de una estrella donde las temperaturas permiten que exista <strong>agua líquida</strong> 
+              en la superficie de un planeta rocoso.
+            </p>
+            
+            <div class="hz-conditions">
+              <h4>Condiciones clave:</h4>
+              <ul>
+                <li>🌡️ <strong>Temperatura adecuada:</strong> 0°C - 100°C en superficie</li>
+                <li>💧 <strong>Agua líquida:</strong> Esencial para la vida como la conocemos</li>
+                <li>🪨 <strong>Planeta rocoso:</strong> Con superficie sólida</li>
+                <li>🌫️ <strong>Atmósfera:</strong> Para retener calor y protección</li>
+              </ul>
+            </div>
+
+            <div class="hz-note">
+              <p>
+                <strong>Nota:</strong> La zona habitable es más estrecha para enanas rojas como TRAPPIST-1 
+                que para estrellas como nuestro Sol, pero las enanas rojas viven mucho más tiempo, 
+                dando más oportunidades para que evolucione la vida.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sistema TRAPPIST-1: Los 7 Planetas -->
+      <div class="planets-section">
+        <h3>🪐 Los 7 Planetas de TRAPPIST-1</h3>
+        
+        <div class="planets-diagram">
+          <div class="diagram-star">
+            <div class="star-core">⭐</div>
+            <p>TRAPPIST-1</p>
+          </div>
+
+          <!-- Planeta 1b -->
+          <div class="planet-orbit orbit-1">
+            <div class="planet-card planet-1b">
+              <div class="planet-icon">🔴</div>
+              <h4>TRAPPIST-1b</h4>
+              <div class="planet-status too-hot">DEMASIADO CALIENTE</div>
+              <ul class="planet-stats">
+                <li>Distancia: 0.0115 UA</li>
+                <li>Periodo: 1.51 días</li>
+                <li>Temperatura: ~400 K (~127°C)</li>
+                <li>Tamaño: 1.116 × Tierra</li>
+                <li>Masa: 1.017 × Tierra</li>
+                <li>Densidad: Similar a la Tierra</li>
+              </ul>
+              <p class="planet-desc">
+                El planeta más interno. Recibe demasiada radiación de la estrella. 
+                Probablemente sin atmósfera debido al intenso calor.
+              </p>
+            </div>
+          </div>
+
+          <!-- Planeta 1c -->
+          <div class="planet-orbit orbit-2">
+            <div class="planet-card planet-1c">
+              <div class="planet-icon">🟠</div>
+              <h4>TRAPPIST-1c</h4>
+              <div class="planet-status too-hot">DEMASIADO CALIENTE</div>
+              <ul class="planet-stats">
+                <li>Distancia: 0.0158 UA</li>
+                <li>Periodo: 2.42 días</li>
+                <li>Temperatura: ~340 K (~67°C)</li>
+                <li>Tamaño: 1.097 × Tierra</li>
+                <li>Masa: 1.156 × Tierra</li>
+                <li>Densidad: Rocoso</li>
+              </ul>
+              <p class="planet-desc">
+                Fuera de la zona habitable por el lado caliente. Podría tener atmósfera 
+                de Venus (efecto invernadero extremo).
+              </p>
+            </div>
+          </div>
+
+          <!-- Planeta 1d -->
+          <div class="planet-orbit orbit-3 habitable-orbit">
+            <div class="planet-card planet-1d habitable-planet">
+              <div class="planet-icon">🌍</div>
+              <h4>TRAPPIST-1d</h4>
+              <div class="planet-status habitable">⭐ ZONA HABITABLE</div>
+              <ul class="planet-stats">
+                <li>Distancia: 0.0223 UA</li>
+                <li>Periodo: 4.05 días</li>
+                <li>Temperatura: ~288 K (~15°C)</li>
+                <li>Tamaño: 0.788 × Tierra</li>
+                <li>Masa: 0.297 × Tierra</li>
+                <li>Densidad: Baja (posible océano)</li>
+              </ul>
+              <p class="planet-desc">
+                ¡En la zona habitable! El más pequeño del sistema. Podría tener grandes 
+                cantidades de agua. Candidato prometedor para vida.
+              </p>
+            </div>
+          </div>
+
+          <!-- Planeta 1e -->
+          <div class="planet-orbit orbit-4 habitable-orbit">
+            <div class="planet-card planet-1e habitable-planet">
+              <div class="planet-icon">🌎</div>
+              <h4>TRAPPIST-1e</h4>
+              <div class="planet-status habitable">⭐ ZONA HABITABLE ⭐</div>
+              <ul class="planet-stats">
+                <li>Distancia: 0.0293 UA</li>
+                <li>Periodo: 6.10 días</li>
+                <li>Temperatura: ~251 K (~-22°C)</li>
+                <li>Tamaño: 0.920 × Tierra</li>
+                <li>Masa: 0.772 × Tierra</li>
+                <li>Densidad: Similar a la Tierra</li>
+              </ul>
+              <p class="planet-desc">
+                <strong>¡EL MÁS PARECIDO A LA TIERRA!</strong> En el centro de la zona habitable. 
+                Tamaño y densidad similares. Mayor candidato para tener agua líquida y vida.
+              </p>
+            </div>
+          </div>
+
+          <!-- Planeta 1f -->
+          <div class="planet-orbit orbit-5 habitable-orbit">
+            <div class="planet-card planet-1f habitable-planet">
+              <div class="planet-icon">🌏</div>
+              <h4>TRAPPIST-1f</h4>
+              <div class="planet-status habitable">⭐ ZONA HABITABLE</div>
+              <ul class="planet-stats">
+                <li>Distancia: 0.0385 UA</li>
+                <li>Periodo: 9.21 días</li>
+                <li>Temperatura: ~219 K (~-54°C)</li>
+                <li>Tamaño: 1.045 × Tierra</li>
+                <li>Masa: 0.934 × Tierra</li>
+                <li>Densidad: Baja (posible océano)</li>
+              </ul>
+              <p class="planet-desc">
+                En la zona habitable. Podría ser un "mundo oceánico" cubierto de agua. 
+                La atmósfera sería crucial para mantener agua líquida.
+              </p>
+            </div>
+          </div>
+
+          <!-- Planeta 1g -->
+          <div class="planet-orbit orbit-6">
+            <div class="planet-card planet-1g">
+              <div class="planet-icon">🔵</div>
+              <h4>TRAPPIST-1g</h4>
+              <div class="planet-status border">BORDE ZONA HABITABLE</div>
+              <ul class="planet-stats">
+                <li>Distancia: 0.0469 UA</li>
+                <li>Periodo: 12.35 días</li>
+                <li>Temperatura: ~199 K (~-74°C)</li>
+                <li>Tamaño: 1.129 × Tierra</li>
+                <li>Masa: 1.148 × Tierra</li>
+                <li>Densidad: Similar a la Tierra</li>
+              </ul>
+              <p class="planet-desc">
+                En el borde exterior de la zona habitable. Posiblemente congelado, 
+                pero una atmósfera densa podría permitir agua líquida.
+              </p>
+            </div>
+          </div>
+
+          <!-- Planeta 1h -->
+          <div class="planet-orbit orbit-7">
+            <div class="planet-card planet-1h">
+              <div class="planet-icon">⚪</div>
+              <h4>TRAPPIST-1h</h4>
+              <div class="planet-status too-cold">DEMASIADO FRÍO</div>
+              <ul class="planet-stats">
+                <li>Distancia: 0.0619 UA</li>
+                <li>Periodo: 18.77 días</li>
+                <li>Temperatura: ~173 K (~-100°C)</li>
+                <li>Tamaño: 0.755 × Tierra</li>
+                <li>Masa: 0.331 × Tierra</li>
+                <li>Densidad: Desconocida</li>
+              </ul>
+              <p class="planet-desc">
+                El más exterior y frío. Fuera de la zona habitable. 
+                Probablemente un mundo helado similar a Europa o Encélado.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparación con la Tierra -->
+      <div class="earth-comparison">
+        <h3>🌍 Comparación con la Tierra</h3>
+        
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Característica</th>
+                <th>Tierra</th>
+                <th>TRAPPIST-1e</th>
+                <th>TRAPPIST-1d</th>
+                <th>TRAPPIST-1f</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Distancia a la estrella</strong></td>
+                <td>1.0 UA (150M km)</td>
+                <td>0.0293 UA (4.4M km)</td>
+                <td>0.0223 UA (3.3M km)</td>
+                <td>0.0385 UA (5.8M km)</td>
+              </tr>
+              <tr>
+                <td><strong>Periodo orbital</strong></td>
+                <td>365.25 días</td>
+                <td>6.10 días</td>
+                <td>4.05 días</td>
+                <td>9.21 días</td>
+              </tr>
+              <tr>
+                <td><strong>Tamaño (radio)</strong></td>
+                <td>6,371 km</td>
+                <td>5,862 km (92%)</td>
+                <td>5,020 km (79%)</td>
+                <td>6,660 km (105%)</td>
+              </tr>
+              <tr>
+                <td><strong>Masa</strong></td>
+                <td>1.0 M⊕</td>
+                <td>0.772 M⊕</td>
+                <td>0.297 M⊕</td>
+                <td>0.934 M⊕</td>
+              </tr>
+              <tr>
+                <td><strong>Gravedad superficial</strong></td>
+                <td>1.0 g</td>
+                <td>~0.91 g</td>
+                <td>~0.48 g</td>
+                <td>~0.85 g</td>
+              </tr>
+              <tr>
+                <td><strong>Temperatura estimada</strong></td>
+                <td>15°C (promedio)</td>
+                <td>-22°C (podría ser templado con atmósfera)</td>
+                <td>15°C</td>
+                <td>-54°C (necesita atmósfera densa)</td>
+              </tr>
+              <tr>
+                <td><strong>Radiación recibida</strong></td>
+                <td>1.0 (referencia)</td>
+                <td>0.66</td>
+                <td>1.15</td>
+                <td>0.38</td>
+              </tr>
+              <tr>
+                <td><strong>Rotación</strong></td>
+                <td>24 horas</td>
+                <td>Probablemente anclada (siempre mismo lado)</td>
+                <td>Probablemente anclada</td>
+                <td>Probablemente anclada</td>
+              </tr>
+              <tr>
+                <td><strong>Posibilidad de agua líquida</strong></td>
+                <td>✅ Abundante</td>
+                <td>✅ Alta probabilidad</td>
+                <td>✅ Posible</td>
+                <td>✅ Con atmósfera adecuada</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="comparison-notes">
+          <h4>📊 Análisis Comparativo</h4>
+          <div class="notes-grid">
+            <div class="note-card">
+              <span class="note-icon">🌍</span>
+              <h5>Similitud con la Tierra</h5>
+              <p><strong>TRAPPIST-1e</strong> es el más similar: tamaño, masa, densidad y posición en la zona habitable son comparables a la Tierra.</p>
+            </div>
+            <div class="note-card">
+              <span class="note-icon">🔒</span>
+              <h5>Rotación Sincrónica</h5>
+              <p>Los planetas probablemente están "anclados" a su estrella (como la Luna a la Tierra), con un lado siempre de día y otro de noche.</p>
+            </div>
+            <div class="note-card">
+              <span class="note-icon">⚡</span>
+              <h5>Radiación Estelar</h5>
+              <p>Las enanas rojas emiten llamaradas intensas. Los planetas necesitan atmósferas robustas y campos magnéticos para protegerse.</p>
+            </div>
+            <div class="note-card">
+              <span class="note-icon">💧</span>
+              <h5>Posibilidad de Océanos</h5>
+              <p>Varios planetas tienen densidades bajas, sugiriendo grandes cantidades de agua o atmósferas densas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Otros Exoplanetas Habitables -->
+      <div class="other-exoplanets">
+        <h3>🌌 Otros Exoplanetas en Condiciones Habitables</h3>
+        
+        <div class="exoplanets-grid">
+          <div class="exoplanet-card">
+            <div class="exoplanet-icon">🌍</div>
+            <h4>Próxima Centauri b</h4>
+            <div class="exoplanet-badge habitable">Zona Habitable</div>
+            <ul>
+              <li><strong>Distancia:</strong> 4.24 años luz (¡el más cercano!)</li>
+              <li><strong>Estrella:</strong> Próxima Centauri (enana roja)</li>
+              <li><strong>Masa:</strong> ~1.17 M⊕</li>
+              <li><strong>Periodo:</strong> 11.2 días</li>
+              <li><strong>Descubrimiento:</strong> 2016</li>
+            </ul>
+            <p>El exoplaneta potencialmente habitable más cercano a la Tierra.</p>
+          </div>
+
+          <div class="exoplanet-card">
+            <div class="exoplanet-icon">🌎</div>
+            <h4>Kepler-452b</h4>
+            <div class="exoplanet-badge habitable">Zona Habitable</div>
+            <ul>
+              <li><strong>Distancia:</strong> 1,400 años luz</li>
+              <li><strong>Estrella:</strong> Similar al Sol (G2)</li>
+              <li><strong>Tamaño:</strong> 1.6 × Tierra</li>
+              <li><strong>Periodo:</strong> 385 días</li>
+              <li><strong>Descubrimiento:</strong> 2015</li>
+            </ul>
+            <p>Apodado "primo mayor de la Tierra". Orbita una estrella similar al Sol.</p>
+          </div>
+
+          <div class="exoplanet-card">
+            <div class="exoplanet-icon">🌏</div>
+            <h4>LHS 1140 b</h4>
+            <div class="exoplanet-badge habitable">Zona Habitable</div>
+            <ul>
+              <li><strong>Distancia:</strong> 40 años luz</li>
+              <li><strong>Tipo:</strong> Súper-Tierra o Mini-Neptuno</li>
+              <li><strong>Masa:</strong> 5.6 M⊕</li>
+              <li><strong>Periodo:</strong> 24.7 días</li>
+              <li><strong>Descubrimiento:</strong> 2017</li>
+            </ul>
+            <p>Uno de los mejores candidatos para detectar atmósfera con telescopios.</p>
+          </div>
+
+          <div class="exoplanet-card">
+            <div class="exoplanet-icon">🔵</div>
+            <h4>K2-18 b</h4>
+            <div class="exoplanet-badge water">Agua Detectada</div>
+            <ul>
+              <li><strong>Distancia:</strong> 124 años luz</li>
+              <li><strong>Tipo:</strong> Mini-Neptuno</li>
+              <li><strong>Masa:</strong> 8.6 M⊕</li>
+              <li><strong>Periodo:</strong> 33 días</li>
+              <li><strong>Descubrimiento:</strong> 2015</li>
+            </ul>
+            <p>¡Vapor de agua detectado en su atmósfera! Posible mundo oceánico.</p>
+          </div>
+
+          <div class="exoplanet-card">
+            <div class="exoplanet-icon">🟢</div>
+            <h4>TOI 700 d</h4>
+            <div class="exoplanet-badge habitable">Zona Habitable</div>
+            <ul>
+              <li><strong>Distancia:</strong> 101 años luz</li>
+              <li><strong>Estrella:</strong> Enana roja</li>
+              <li><strong>Tamaño:</strong> 1.19 × Tierra</li>
+              <li><strong>Periodo:</strong> 37 días</li>
+              <li><strong>Descubrimiento:</strong> 2020 (TESS)</li>
+            </ul>
+            <p>Primer planeta del tamaño de la Tierra en zona habitable descubierto por TESS.</p>
+          </div>
+
+          <div class="exoplanet-card">
+            <div class="exoplanet-icon">🌍</div>
+            <h4>Kepler-186f</h4>
+            <div class="exoplanet-badge habitable">Zona Habitable</div>
+            <ul>
+              <li><strong>Distancia:</strong> 500 años luz</li>
+              <li><strong>Tamaño:</strong> 1.1 × Tierra</li>
+              <li><strong>Periodo:</strong> 130 días</li>
+              <li><strong>Estrella:</strong> Enana roja</li>
+              <li><strong>Descubrimiento:</strong> 2014</li>
+            </ul>
+            <p>Primer planeta del tamaño de la Tierra descubierto en zona habitable.</p>
+          </div>
+        </div>
+
+        <div class="exoplanets-stats">
+          <h4>📈 Estadísticas de Exoplanetas</h4>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-number">5,500+</div>
+              <div class="stat-label">Exoplanetas confirmados</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">~60</div>
+              <div class="stat-label">En zona habitable</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">~30</div>
+              <div class="stat-label">Del tamaño de la Tierra</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">4,000+</div>
+              <div class="stat-label">Sistemas planetarios</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Misión Completa -->
+      <div class="mission-complete">
+        <div class="astronaut-box success">
+          <div class="astronaut-icon">👩‍🚀</div>
+          <p class="astronaut-text">
+            <strong>Paula:</strong> "¡Control, calibración completa! He verificado todo el sistema TRAPPIST-1. 
+            Recomiendo aterrizar en <strong>TRAPPIST-1e</strong> - es el más similar a la Tierra y está 
+            en el centro de la zona habitable. Iniciando secuencia de aterrizaje... ¡Nos vemos en la superficie!"
+          </p>
+        </div>
+        
+        <div class="mission-badge">
+          <div class="badge-icon">✅</div>
+          <h4>MISIÓN COMPLETADA</h4>
+          <p>Sistema calibrado • Zona habitable identificada • Aterrizaje aprobado</p>
+        </div>
+      </div>
+
+      <!-- Fuente -->
+      <div class="source-info">
+        <p>
+          <strong>📚 Fuente de información:</strong> NASA Eyes on Exoplanets 
+          <a href="https://eyes.nasa.gov/apps/exo/" target="_blank" rel="noopener">
+            eyes.nasa.gov/apps/exo
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
   <!-- SCRIPTS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
