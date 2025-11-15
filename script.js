@@ -2093,3 +2093,40 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+// Efecto parallax en secciones del team
+  gsap.utils.toArray('.section-team-diamante, .section-historia, .section-trappist, .section-final-button').forEach((section) => {
+    gsap.to(section, {
+      y: -60,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.5
+      }
+    });
+  });
+  
+  // Animación especial para el botón Relatos Finales
+  const relatosBtn = document.querySelector('.relatos-finales-btn');
+  if (relatosBtn) {
+    gsap.fromTo(relatosBtn,
+      {
+        opacity: 0,
+        scale: 0.8,
+        y: 50
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "elastic.out(1, 0.6)",
+        scrollTrigger: {
+          trigger: relatosBtn,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      }
+    );
+  }

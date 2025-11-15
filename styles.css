@@ -1981,6 +1981,77 @@ strong {
   margin: 0;
 }
 
+/* === Media Queries para Cosmic Cycle en Móviles === */
+@media (max-width: 768px) {
+  .cycle-diagram {
+    gap: 0.5rem;
+  }
+
+  .cycle-step {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+
+  .cycle-arrow {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cosmic-cycle {
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .cosmic-cycle h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cycle-diagram {
+    gap: 0.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cycle-step {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    white-space: normal;
+    text-align: center;
+    min-width: auto;
+  }
+
+  .cycle-arrow {
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .cycle-text {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .cosmic-cycle {
+    padding: 1rem;
+  }
+
+  .cosmic-cycle h4 {
+    font-size: 1.1rem;
+  }
+
+  .cycle-step {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.65rem;
+  }
+
+  .cycle-arrow {
+    font-size: 0.8rem;
+  }
+}
+
 .final-chapter {
   background: linear-gradient(135deg, rgba(255, 200, 55, 0.1), rgba(255, 140, 66, 0.08));
   border-color: rgba(255, 200, 55, 0.4);
@@ -2786,4 +2857,183 @@ strong {
   html {
     scroll-behavior: auto;
   } 
+}
+/* === BOTÓN RELATOS FINALES === */
+.section-final-button {
+  background: radial-gradient(ellipse at center, rgba(255, 140, 66, 0.08) 0%, transparent 70%);
+  min-height: 70vh;
+}
+
+.final-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+.relatos-finales-btn {
+  position: relative;
+  z-index: 10;
+  padding: 28px 70px;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, 
+    #ff8c42 0%,
+    #ffc837 25%, 
+    #ff6b1a 50%, 
+    #ffc837 75%, 
+    #ff8c42 100%);
+  background-size: 300% 300%;
+  border: 3px solid rgba(255, 200, 55, 0.8);
+  border-radius: 60px;
+  box-shadow: 
+    0 0 50px rgba(255, 140, 66, 0.7),
+    0 0 100px rgba(255, 200, 55, 0.5),
+    0 0 150px rgba(255, 107, 26, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: gradient-shift-final 4s ease infinite, float-final 3.5s ease-in-out infinite;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+@keyframes gradient-shift-final {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float-final {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.03); }
+}
+
+.relatos-finales-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  animation: shine-final 3.5s infinite;
+}
+
+@keyframes shine-final {
+  0% { transform: rotate(45deg) translateX(-100%); }
+  100% { transform: rotate(45deg) translateX(100%); }
+}
+
+.relatos-finales-btn .btn-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 60px;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 100%
+  );
+  animation: shine-sweep-final 3s infinite;
+}
+
+@keyframes shine-sweep-final {
+  0% { transform: translateX(-100%) skewX(-20deg); }
+  100% { transform: translateX(200%) skewX(-20deg); }
+}
+
+.relatos-finales-btn .btn-text {
+  position: relative;
+  z-index: 1;
+  text-shadow: 
+    0 0 15px rgba(255, 140, 66, 0.8),
+    0 0 30px rgba(255, 200, 55, 0.6),
+    0 0 45px rgba(255, 107, 26, 0.4),
+    2px 2px 6px rgba(0, 0, 0, 0.6);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+}
+
+.relatos-finales-btn .btn-subtitle {
+  position: relative;
+  z-index: 1;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.95;
+  text-shadow: 
+    0 0 10px rgba(255, 140, 66, 0.6),
+    0 0 20px rgba(255, 200, 55, 0.4);
+}
+
+.relatos-finales-btn:hover {
+  transform: translateY(-12px) scale(1.08);
+  box-shadow: 
+    0 0 70px rgba(255, 140, 66, 1),
+    0 0 140px rgba(255, 200, 55, 0.8),
+    0 0 210px rgba(255, 107, 26, 0.6),
+    0 25px 70px rgba(0, 0, 0, 0.5),
+    inset 0 0 50px rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 200, 55, 1);
+  animation-duration: 2s;
+}
+
+.relatos-finales-btn:active {
+  transform: translateY(-6px) scale(1.04);
+}
+
+.relatos-finales-btn::after {
+  content: '';
+  position: absolute;
+  inset: -25px;
+  background: radial-gradient(circle, rgba(255, 140, 66, 0.4) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+  border-radius: 50%;
+  animation: pulse-ring-final 2.5s ease-out infinite;
+}
+
+@keyframes pulse-ring-final {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+.relatos-finales-btn:hover::after {
+  animation: pulse-ring-final 1.2s ease-out infinite;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .team-diamante-btn {
+    font-size: 1.2rem;
+    padding: 20px 48px;
+  }
+  
+  .relatos-finales-btn {
+    font-size: 1.3rem;
+    padding: 24px 56px;
+  }
 }
